@@ -10,5 +10,10 @@
     <PackageReference Include="ITfoxtec.Identity.Saml2" Version="4.15.3" />
     <PackageReference Include="ITfoxtec.Identity.Saml2.MvcCore" Version="4.15.3" />
   </ItemGroup>
+	<ItemGroup>
+		<Content Include="Certifcates/SAML_AzureAD_B2C_TestApp.cer">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
 </Project>
