@@ -18,6 +18,7 @@ builder.Services.Configure<Saml2Configuration>(saml2Configuration =>
     saml2Configuration.SignatureValidationCertificates.Add(cert);
     var entityDescriptor = new EntityDescriptor();
     entityDescriptor.ReadIdPSsoDescriptorFromUrl(new Uri(configuration["Saml2:IdPMetadata"]));
+    // entityDescriptor.ReadIdPSsoDescriptorFromUrl(new Uri(configuration["Saml2:IdPMetadataB2B"]));
     if (entityDescriptor.IdPSsoDescriptor != null)
     {
         saml2Configuration.SingleSignOnDestination = entityDescriptor.IdPSsoDescriptor.SingleSignOnServices.First().Location;
