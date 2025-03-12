@@ -39,7 +39,8 @@ namespace SAML_AzureAD_B2C_TestApp.Controllers
             }
             binding.Unbind(Request.ToGenericHttpRequest(), saml2AuthnResponse);
             await saml2AuthnResponse.CreateSession(HttpContext);
-            return Redirect("https://localhost:44389");
+            /*return Redirect("https://localhost:44389");*/
+            return Redirect("https://samltestappb2c-gwgweka4aeg4aeau.westeurope-01.azurewebsites.net");
         }
 
         [Route("Logout")]
