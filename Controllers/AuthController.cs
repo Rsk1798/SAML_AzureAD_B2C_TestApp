@@ -51,7 +51,15 @@ namespace SAML_AzureAD_B2C_TestApp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                var binding = new Saml2PostBinding();
+                var saml2LogoutRequest = new Saml2LogoutRequest(config);
                 await HttpContext.SignOutAsync();
+                // await HttpContext.Session.ClearAsync();
+                HttpContext.Session.Clear();
+                foreach (var cookie in Request.Cookies.Keys)
+                {
+                    Response.Cookies.Delete(cookie);
+                }
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Index", "Home");
