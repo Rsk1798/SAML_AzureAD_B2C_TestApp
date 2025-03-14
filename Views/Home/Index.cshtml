@@ -3,12 +3,23 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome 😊 😊 😊</h1>
+    <h1>This is a web application which is useful to test SAML Protocol :- </h1>
+    <h1>SAML :- Security Assertion Markup Language</h1>
+    <p>
+        <h5>
+            <B>Definition :-</B> SAML is the underlying technology that allows people to sign in once using one set of credentials and access multiple applications.
+            Identity providers, like Microsoft Entra ID, verify users when they sign in, and then use SAML to pass that authentication data to the service provider that runs the site, service, or app that the users wish to access.
+        </h5>
+    </p>
     @if (User.Identity.IsAuthenticated)
     {
         var nameClaim = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/identity/claims/displayname");
         var name = nameClaim == null ? null : nameClaim.Value;
-        <p>Hello, @name</p>
+        <h1>Hello, @name</h1>
+        <h1>Congratulations & Celebrations</h1>
+        <h1>You Successfully Passed SAML Configuration 🎉 🎉 🎉</h1>
+        <p>If you want to check user claims click on view profile</p>
         <p>
             <a asp-controller="Profile" asp-action="Index" class="btn btn-info">View Profile</a>
         </p>
