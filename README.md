@@ -1,5 +1,5 @@
 # SAML_AzureAD_B2C_TestApp
-# IdpMetadata
+# IdpMetadata :- https://hcliamtrainingb2c.b2clogin.com/hcliamtrainingb2c.onmicrosoft.com/B2C_1A_SIGNUP_SIGNIN_SAML_RV/Samlp/metadata
 # base64string: 
 # X509Data>
 # X509Certificate>
