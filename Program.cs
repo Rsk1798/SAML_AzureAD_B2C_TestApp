@@ -17,7 +17,7 @@ builder.Services.Configure<Saml2Configuration>(saml2Configuration =>
     Console.WriteLine(rootDirectory);
     //var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + "\\Certifcates\\SAML_AzureAD_B2C_TestApp.cer");
     // var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + builder.Configuration["CertificatePath"]);
-    // var cert =  new X509Certificate2(Convert.FromBase64String(builder.Configuration["Certificate"]));
+    var cert =  new X509Certificate2(Convert.FromBase64String(builder.Configuration["Certificate"]));
     // var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + "\\Certifcates\\TestSaml_raj.cer", "123");
     // saml2Configuration.SignatureValidationCertificates.Add(cert);
     var entityDescriptor = new EntityDescriptor();
