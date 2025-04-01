@@ -16,9 +16,9 @@ builder.Services.Configure<Saml2Configuration>(saml2Configuration =>
     string rootDirectory = global::System.IO.Directory.GetCurrentDirectory();
     Console.WriteLine(rootDirectory);
     //var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + "\\Certifcates\\SAML_AzureAD_B2C_TestApp.cer");
-    var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + builder.Configuration["CertificatePath"]);
+    // var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + builder.Configuration["CertificatePath"]);
     // var cert =  new X509Certificate2(Convert.FromBase64String(builder.Configuration["Certificate"]));
-    // var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + "\\Certifcates\\TestSaml_raj.cer");
+    var cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(rootDirectory + "\\Certifcates\\TestSaml_raj.cer");
     saml2Configuration.SignatureValidationCertificates.Add(cert);
     var entityDescriptor = new EntityDescriptor();
     entityDescriptor.ReadIdPSsoDescriptorFromUrl(new Uri(configuration["Saml2:IdPMetadata"]));
