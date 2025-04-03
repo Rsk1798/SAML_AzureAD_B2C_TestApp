@@ -24,7 +24,14 @@ namespace SAML_AzureAD_B2C_TestApp.Controllers
         public IActionResult Login()
         {
             var binding = new Saml2RedirectBinding();
-            return binding.Bind(new Saml2AuthnRequest(config)).ToActionResult();
+            // return binding.Bind(new Saml2AuthnRequest(config)).ToActionResult();
+            var authnRequest = new Saml2AuthnRequest(config)
+            {
+                // Enforce SHA-256 in the request
+                SignatureAlgorithm = config.SignatureAlgorithm
+            };
+            return binding.Bind(authnRequest).ToActionResult();
+
         }
 
         [Route("SamlResponse")]
@@ -32,17 +39,28 @@ namespace SAML_AzureAD_B2C_TestApp.Controllers
         {
             var binding = new Saml2PostBinding();
             var saml2AuthnResponse = new Saml2AuthnResponse(config);
-            binding.ReadSamlResponse(Request.ToGenericHttpRequest(), saml2AuthnResponse);
-            if (saml2AuthnResponse.Status != Saml2StatusCodes.Success)
+            try
             {
-                throw new AuthenticationException($"SAML Response status: {saml2AuthnResponse.Status}");
+                binding.ReadSamlResponse(Request.ToGenericHttpRequest(), saml2AuthnResponse);
+                if (saml2AuthnResponse.Status != Saml2StatusCodes.Success)
+                {
+                    throw new AuthenticationException($"SAML Response status: {saml2AuthnResponse.Status}");
+                }
+
+                // Validate SHA-256 signature
+                binding.Unbind(Request.ToGenericHttpRequest(), saml2AuthnResponse);
+                // saml2AuthnResponse.Validate();
+                await saml2AuthnResponse.CreateSession(HttpContext);
+                /*return Redirect("https://localhost:44389");*/
+                // return Redirect("https://samltestappb2c-gwgweka4aeg4aeau.westeurope-01.azurewebsites.net");
+                // return Redirect("https://localhost:7242");
+                return Redirect(config.Issuer);
             }
-            binding.Unbind(Request.ToGenericHttpRequest(), saml2AuthnResponse);
-            await saml2AuthnResponse.CreateSession(HttpContext);
-            /*return Redirect("https://localhost:44389");*/
-            // return Redirect("https://samltestappb2c-gwgweka4aeg4aeau.westeurope-01.azurewebsites.net");
-            // return Redirect("https://localhost:7242");
-            return Redirect(config.Issuer);
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
         }
 
         [Route("Logout")]
